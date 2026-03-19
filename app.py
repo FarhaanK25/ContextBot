@@ -304,7 +304,7 @@ def stream_wrapper(message, history):
         time.sleep(0.015)
 
 # Gradio UI
-with gr.Blocks(theme='default') as demo:
+with gr.Blocks() as demo:
     gr.Markdown("# Context Bot")
     with gr.Row():
         with gr.Column(scale=1):
@@ -317,7 +317,7 @@ with gr.Blocks(theme='default') as demo:
             delete_btn = gr.Button("Delete Selected Book")
             delete_status = gr.Textbox(label="Deletion Status", interactive=False)
         with gr.Column(scale=3):
-            chatbot = gr.Chatbot(label="Chat", type="messages")
+            chatbot = gr.Chatbot(label="Chat")
             query = gr.Textbox(label="Ask a question")
             query.submit(stream_wrapper, inputs=[query, chatbot], outputs=[chatbot, query]  # return to both chatbot and query box
 )
