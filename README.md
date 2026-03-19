@@ -1,3 +1,12 @@
+---
+title: ContextBot
+emoji: 📚
+colorFrom: blue
+colorTo: purple
+sdk: gradio
+app_file: app.py
+pinned: false
+---
 # ContextBot: Advanced RAG Chatbot
 
 An optimized, full-featured Retrieval-Augmented Generation (RAG) application that allows you to chat with your personal documents. Built with a Gradio frontend, it features concurrent document processing, SQLite-backed file management, two-stage document retrieval, and lightning-fast LLM inference via the Groq API.
