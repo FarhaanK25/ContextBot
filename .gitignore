@@ -15,3 +15,5 @@ __pycache__/
 # Uploaded documents 
 *.pdf
 *.txt
+
+.DS_Store
