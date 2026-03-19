@@ -1,0 +1,17 @@
+# Environments
+.env
+venv/
+env/
+
+# Databases
+.chromadb/
+*.db
+ingest_registry.db
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Uploaded documents 
+*.pdf
+*.txt
