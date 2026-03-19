@@ -132,7 +132,7 @@ def process_book_path(book_path: str) -> str:
     cursor.execute("SELECT id FROM books WHERE book_hash = ?", (book_hash,))
     result = cursor.fetchone()
     if result:
-        return f"⚠️ Book **{title}** already ingested. Skipping duplicate."
+        return f"Book **{title}** already ingested. Skipping duplicate."
 
     try:
         # Read content
@@ -144,7 +144,7 @@ def process_book_path(book_path: str) -> str:
             with open(book_path, "r", encoding="utf-8") as f:
                 content = f.read()
         else:
-            return f"❌ Unsupported file type: {filename}"
+            return f"Unsupported file type: {filename}"
 
         # Metadata
         upload_time = datetime.utcnow().isoformat()
@@ -164,10 +164,10 @@ def process_book_path(book_path: str) -> str:
         )
         conn.commit()
 
-        return f"✅ Uploaded {num_chunks} chunks from **{title}**"
+        return f"Uploaded {num_chunks} chunks from **{title}**"
 
     except Exception as e:
-        return f"❌ Error processing {filename}: {str(e)}"
+        return f"Error processing {filename}: {str(e)}"
 
 
 # --- Ingest multiple books using ProcessPoolExecutor ---
@@ -194,7 +194,7 @@ def get_ingested_filenames():
 def delete_book(selected_filename):
     try:
         if not selected_filename:
-            return "⚠️ Please select a book to delete."
+            return "Please select a book to delete."
 
         # Fetch the book_hash for the selected filename
         conn = SQLiteSingleton.get_connection()
@@ -202,7 +202,7 @@ def delete_book(selected_filename):
         cursor.execute("SELECT book_hash FROM books WHERE filename = ?", (selected_filename,))
         result = cursor.fetchone()
         if not result:
-            return f"❌ Book '{selected_filename}' not found in registry."
+            return f"Book '{selected_filename}' not found in registry."
         book_hash = result[0]
 
         # Delete from ChromaDB by filtering based on book_hash in metadata
@@ -221,7 +221,7 @@ def delete_book(selected_filename):
         return f"🗑️ Successfully deleted book '{selected_filename}'."
 
     except Exception as e:
-        return f"❌ Error deleting book '{selected_filename}': {str(e)}"
+        return f"Error deleting book '{selected_filename}': {str(e)}"
 
 import requests
 import json 
@@ -285,7 +285,7 @@ def generate_answer(query: str, history):
                 yield delta  # Streaming token-by-token to Gradio
 
     except Exception as e:
-        yield f"\n\n❌ Error communicating with API: {str(e)}"
+        yield f"\n\nError communicating with API: {str(e)}"
 
 def stream_wrapper(message, history):
     history = history or []
@@ -305,7 +305,7 @@ def stream_wrapper(message, history):
 
 # Gradio UI
 with gr.Blocks(theme='default') as demo:
-    gr.Markdown("# 📚 Context Bot")
+    gr.Markdown("# Context Bot")
     with gr.Row():
         with gr.Column(scale=1):
             upload = gr.File(label="Upload Books (PDF or TXT)", file_types=[".pdf", ".txt"], file_count="multiple")
